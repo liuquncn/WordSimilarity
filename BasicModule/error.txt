@@ -1,0 +1,28 @@
+	　
+
+错误处理函数
+
+	本系统采用统一的错误处理函数。
+	基本原理是采用C++的关键字 try, throw 和 catch 。
+	采用这些关键字能够保证以一种结构化的方式处理程序中出现的意外错误，
+	有利于程序提高可读性，并使程序更易于调试。
+
+类 CErrorException
+
+	该类只有一个数据成员(m_Message)，是一个字符串指针，
+	指向该错误发生时显示的错误字符串。
+
+函数 error
+
+	void error(const char * msg1=NULL,
+	　　　　　const char * msg2=NULL,const char * msg3=NULL)
+	该函数在一个消息框(MessageBox)内显示若干错误信息，
+	然后抛出(throw)一个CErrorException类对象。
+	输入最多三个字符串，表示发生错误的信息，如错误类型、
+	原因、位置等。
+
+	注意：
+
+	该函数抛出(throw)的CErrorException对象是一个
+	静态(static)的对象，当该错误对象被俘获(catch)后，
+	不需要释放(delete)其占用的空间，否则会导致运行错误。

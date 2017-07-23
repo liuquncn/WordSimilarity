@@ -1,0 +1,48 @@
+
+其他函数：有些函数是和操作系统相关的（如简单交互函数和文件目录处理函数），
+          为了使程序便于移植，将这些函数集中在本文件中，程序最好使用本文件中的函数，
+		  而不要直接调用与操作系统相关的函数。
+
+字符串函数：提供一些标准库函数以外的字符串函数
+
+	unsigned int strcpyn(char * s1,const char * s2,unsigned int num);
+		字符串拷贝，最多拷贝num个字符
+	int stricmp(const char * s1, const char * s2);
+		字符串比较，忽略大小写
+	int stragree(const char * s1, const char * s2);
+		字符串比较，返回值为：
+		 0: s1==s2
+		-1: s1是s2的头部子串
+		+1: s2是s1的头部子串
+		-2: s1<s2,但s1不是s2的头部子串
+		+2: s1>s2,但s2不是s1的头部子串
+
+简单交互函数：
+
+	void message(const char * msg1=NULL, const char * msg2=NULL, const char * msg3=NULL)
+		显示错误信息，最多显示三行。
+
+	int yesno(const char * msg,BOOL def=TRUE);
+		向用户提出一个问题，并返回用户给出的答复（“是”或“否”）；
+
+文件与目录处理函数：
+
+	void FileTouch(const char * lpszFile);
+		类似于UNIX系统中的touch函数，将一个文件的时间改为当前时间
+	void FileCopyTo(const char * lpszSrcFile,const char * lpszDestFile);
+		将一个文件拷贝到另一个文件
+	void FileAppendTo(const char * lpszSrcFile,const char * lpszDestFile);
+		将一个文件的内容添加到另一个文件尾部
+	void FileAppendStringTo(const char * string,const char * lpszDestFile);
+		将一个字符串添加到一个文件尾部
+	int  FileEdit(const char * file);
+		调用一个外部的文本编辑器编辑一个文件，文本编辑命令存放在一个全局变量OptionEditProgram中
+	unsigned long FileGetTime(const char * filename);
+		取得当前文件的时间
+	void DirMake(const char * dirname);
+		创建一个目录
+	int ShellOpen(const char * file);
+		在Windows下利用相关联的程序打开一个文档
+	int ShellTextOpen(const char * file)
+		在Windows下利用文本文件编辑程序打开一个文档
+

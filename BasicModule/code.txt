@@ -1,0 +1,80 @@
+	　
+
+汉字代码处理函数
+
+	由于汉字采用双字节代码，对于单字节和双字节混合的字符串，
+	需要定义一些特殊的函数进行处理。本文件提供的函数只支持GB2312标准。
+
+类 Code: 
+
+	用于存储一个单字节或双字节字符。
+	有HiByte和LoByte两个字符型
+	数据成员， 分别表示双字节字符的高位字节和低位字节。 
+	对于单字节字符， HiByte为0，LoByte为字符值。
+
+取字节函数：
+
+	getNrByte(const char *): 取指针所指向的字节(近字节)；
+	getFrByte(const char *): 取指针所指向的下一字节(远字节)；
+	getHiByte(const Code): 取字符高位字节；
+	getLoByte(const Code): 取字符低位字节；
+
+单双字节判断函数：
+
+	isDblByte(const char *): 判断指针所指向的是否为一双字节字符；
+	isSglByte(const char *): 判断指针所指向的是否为一单字节字符；
+	isDblByte(const Code): 判断字符是否为一双字节；
+	isSglByte(const Code): 判断字符是否为一单字节；
+
+取整数值函数：
+
+	getValue(const char *): 返回指针所指向的字符对应的整数值；
+	getValue(const Code): 返回字符对应的整数值；
+
+相等判断函数：
+
+	isEqual(const char *, const char *): 判断两个指针指向的字符是否相等；
+	isEqual(const char *, Code): 判断指针指向的字符是否等于另一个字
+
+取字符代码：
+
+	getCode(const char *): 返回指针所指向的字符代码(Code)；
+	getCodeNext(const char &*): 返回指针所指向的字符代码(Code)，并将参数指针移到下一字符；
+
+置字符代码：
+
+	setChar(const char *,const char *): 将第二指针所指向的字符置入第一指针所指位置；
+	setChar(const char *,const Code): 将字符代码(Code)置入指针所指位置；
+	setCharNext(const char *&,const char *&): 将第二指针所指向的字符置入第一指针
+	　　所指位置，并将两个指针都移到下一字符；
+	setCharNext(const char *&,const Code): 将字符代码(Code)置入指针所指位置，并将
+	　　指针移到下一字符；
+
+取区位码函数：
+
+	getQu(const char *): 取指针所指向字符的区码；
+	getQu(const Code): 取字符的区码；
+	getWei(const char *): 取指针所指向字符的位码；
+	getWei(const Code): 取字符的位码；
+
+字符类型判断函数：
+
+	isChnChar(const char *): 判断指针所指向的字符是否为汉字字符；
+	isChnChar(const Code): 判断一个字符是否为汉字字符；
+	isLtnChar(const char *): 判断指针所指向的字符是否为拉丁字符；
+	isLtnChar(const Code): 判断一个字符是否为拉丁字符；
+	isPctChar(const char *): 判断指针所指向的字符是否为标点符号；
+	isPctChar(const Code): 判断一个字符是否为标点字符；
+	isDgtChar(const char *): 判断指针所指向的字符是否为数字字符；
+	isDgtChar(const Code): 判断一个字符是否为数字字符；
+	isSpcChar(const char *): 判断指针所指向的字符是否为空白字符；
+	isSpcChar(const Code): 判断一个字符是否为空白字符；
+
+取下一字符函数：
+
+	getNext(const char *): 返回下一字符的指针；
+	goNext(const char *): 将指针移到下一字符，并返回该字符指针；
+
+
+
+	　

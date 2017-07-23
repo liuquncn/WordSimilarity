@@ -1,0 +1,18 @@
+
+基本常数：
+
+LANGNUM：系统所支持的自然语言的数目。
+　　　　　机器翻译系统至少应支持两种自然语言。每一种语言有一个语言代码。
+CHINESE：汉语的语言代码
+ENGLISH： 英语的语言代码
+SEMANTIC：语义的语言代码
+
+FILENAMELENGTH：文件名字符串的最大长度
+WORDLENGTH：单词的最大长度
+SENTLENGTH：句子的最大长度
+
+SUCC：等于TRUE
+FAIL：等于FALSE
+
+YES：等于TRUE
+NO：等于FALSE

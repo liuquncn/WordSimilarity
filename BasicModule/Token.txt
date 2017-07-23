@@ -1,0 +1,203 @@
+　
+
+Token类
+
+	Token类用于处理字符串中标识符、数值和分隔符。
+	一共有四种Token类，其派生关系为：
+
+	Token：基本Token类；
+	IToken: virtual public Token：输入Token类；
+	OToken: virtual public Token：输出Token类；
+	IOToken：public IToken, public OToken：输入输出Token类。
+
+定义
+
+	一个 Token 是按照一定规则组成的一个字符串。
+	一个连续的字符流(stream)可以分解成一系列的 Token 。
+
+	Token分为三类：
+
+	标识符：以字母、汉字或下划线(_)开始，由字母、汉字、数字(0-9)或
+	　　　　下划线(_)组成的Token。或者是用双引号括起来的任意字符串。
+	　　　　如果双引号内的字符串中又出现双引号，那么这个双引号应重
+	　　　　复写一次。
+	数值：　全部由数字(0-9)组成的Token。
+	分隔符：分隔符有两类简单分隔符和复合分隔符。
+	　　　　简单分隔符由单个的标点符号组成。
+	　　　　复合分隔符由连续的若干个标点符号组成，但必须事先定义。
+
+常数
+
+	const int TOKENLENGTH：Token的最大长度；
+	const int DELIMNUMBER：预定义复合分隔符的最大数目。
+
+类Token：
+
+	静态数据成员：
+
+		char * * DelimList：预定义的复合分隔符列表
+		　　这是一个私有变量，不能直接存取，
+		　　必须通过以下两个静态函数存取
+
+	静态成员函数：
+
+		char * * getDelimList()：取复合分隔符列表
+		void initDelimList(char ** delimlist)：
+		　　初始化预定义的复合分隔符列表
+		　　参数就是一个预定义的复合分隔符列表指针，
+		　　预定义的过程中要进行排序
+
+	私有数据成员：
+
+		int Type：该 Token 的类型，取值为枚举变量：
+		　　IDENT：标识符
+		　　INTEG：数值
+		　　DELIM：分隔符
+		char Buffer[TOKENLENGTH]：标识符的字符串
+
+	公有成员函数：
+
+		Token()：初始化一个空标识符
+		Token(const Token &token)：拷贝初始化
+
+		int getType() const：返回标识符的类型
+		const char * getBuffer() const：返回标识符的字符串
+		void setType(int t)：设定标识符的类型
+		void setBuffer(const char *s)：设定标识符的字符串
+
+		int isIdent()：判断该 Token 是否为标识符
+		int isIdent(const char *s)：判断该 Token 是否为标识符，
+		　　并且其字符串是否等于给定的字符串
+		int isInteg()：判断该 Token 是否为数值
+		int isInteg(int n)：判断该 Token 是否为数值，
+		　　并且其整数值是否等于给定的整数
+		int isInteg(const char *s)：判断该 Token 是否为数值，
+		　　并且其字符串是否等于给定的字符串
+		int isDelim()：判断该 Token 是否为分隔符
+		int isDelim(const char *s)：判断该 Token 是否为分隔符，
+		　　并且其字符串是否等于给定的字符串
+		int isEmpty()：判断该 Token 是否为空
+
+		int isEqualTo(Token &t)：判断该 Token 是否等于另一个 Token
+		int isEqualTo(const char *s)：判断该 Token 是否等于给定字符串所对应
+		　　的 Token。该字符串所对应的 Token 可以是标识符、数值或分隔符。
+		int isEqualTo(int n)：判断该 Token 是否等于给定整数所对应的数值 Token。
+
+	操作符：
+
+		int operator == ( Token &t )：等价于 isEqualTo(t)；
+		int operator == ( const char *s)：等价于 isEqualTo(s)；
+		int operator == ( int n)：等价于 isEqualTo(n)；
+		int operator != ( Token &t )等价于 !isEqualTo(t)；
+		int operator != ( const char *s)：等价于 !isEqualTo(s)；
+		int operator != ( int n)：等价于 !isEqualTo(n)；
+
+		operator const char * ()：等价于 getBuffer()。
+
+类IToken：
+
+	私有数据成员：
+
+		const char * InPntr：当前输入指针
+		const char * ForeInPntr：下一 Token 输入指针
+
+	构造函数：
+
+		IToken()：空构造函数
+		IToken(const char *s)：构造一个 IToken，以指定的字符串为输入字符串
+		IToken(const IToken & itoken)：复制一个 IToken
+
+	公有成员函数：
+
+		const char * getInPntr()：取当前输入指针
+		const char * getForeInPntr()：取下一 Token 的输入指针
+		int getInPace()：返回当前输入指针和下一输入指针之间的字节数
+
+		void setInPntr(const char *s)：设定当前输入指针
+		void redrawin()：将下一 Token 的输入指针卷回到当前输入指针，
+		　　这样当前输入的 Token 将再被输入一次。
+		　　该操作只能连续执行一次，再次执行无效。
+
+		int input()：输入一个 Token，并将指针往后移动。
+
+		void goupto(const char *s1, const char * s2=NULL)：
+		　　将输入指针往后移动，直到出现一个与指定的字符串（二者之一）
+		　　相同的 Token，输入指针停在该 Token 之前
+		void goover(const char *s1, const char * s2=NULL)：
+		　　将输入指针往后移动，直到出现一个与指定的字符串（二者之一）
+		　　相同的 Token，输入指针停在该 Token 之后
+		void gouptomatch()：
+		　　如果当前 Token 是左括号（“(<[{”之一），
+		　　那么将输入指针往后移动，直到出现与之匹配的右括号（可以嵌套），
+		　　将输入指针停在该右括号之前
+		void goovermatch()：
+		　　如果当前 Token 是左括号（“(<[{”之一），
+		　　那么将输入指针往后移动，直到出现与之匹配的右括号（可以嵌套），
+		　　将输入指针停在该右括号之后
+
+	友元(friend)函数：
+
+		void goupto(const char *&pntr, const char *s1, const char *s2=NULL)：
+		　　将 pntr 往后移动，直到出现一个与 s1 或 s2 相同的 Token，
+		　　将 pntr 停在该 Token 之前
+		void goover(const char *&pntr, const char *s1, const char *s2=NULL)：
+		　　将 pntr 往后移动，直到出现一个与 s1 或 s2 相同的 Token，
+		　　将 pntr 停在该 Token 之后
+		void gouptomatch(const char *&pntr)：
+		　　如果 pntr 当前指向的是左括号（“(<[{”之一），
+		　　那么将 pntr 往后移动，直到出现与之匹配的右括号（可以嵌套），
+		　　将 pntr 停在该右括号之前
+		void goovermatch(const char *&pntr)：
+		　　如果 pntr 当前指向的是左括号（“(<[{”之一），
+		　　那么将 pntr 往后移动，直到出现与之匹配的右括号（可以嵌套），
+		　　将 pntr 停在该右括号之后
+
+
+类OToken：
+
+	私有数据成员：
+
+		char * OutPntr：当前输出指针
+		char * BackOutPntr：前一 Token 的输出指针
+
+	构造函数：
+
+		OToken()：空构造函数
+		OToken(char *s)：构造一个以指定字符串为输出指针的 OToken
+		OToken(const OToken & otoken)：复制一个 OToken
+
+	公有成员函数：
+
+		char * getOutPntr()：取当前输出指针
+		char * getBackOutPntr()：取前一 Token 的输出指针
+		int getOutPace()：取前一 Token 的输出指针和当前输出指针之间的字节数
+
+		void setOutPntr(char *s)：设置输出指针
+		void redrawout()：将当前输出指针回卷到前一 Token 的输出指针，
+		　　这样当前已被输出的 Token 将被覆盖。
+		　　该操作只能连续执行一次，再次执行无效。
+
+		int output()：输出当前 Token。
+		　　即根据当前 Token 的类型输出当前 Token 的 Buffer 中的字符串。
+		　　例如，如果当前 Token 类型为标识符，而 Buffer 中的
+		　　字符串出现标点符号，那么输出时会自动加上双引号
+		int output(const Token & t)：输出指定的 Token。
+		　　输出时应考虑指定 Token 的类型
+		int output(const char c)：输出指定的字符，不考虑类型
+		int output(const Code c)：输出指定的字符(Code)，不考虑类型
+		int output(const char *s)：输出指定的字符串，不考虑类型
+		int outputIdent(const char *s)：按照标识符类型的格式输出指定的字符串
+		int outputNewLine()：输出一个回车符，不考虑类型
+		int outputNull()：输出一个零字符('\0')，不考虑类型
+
+类IOToken：
+
+	类 IOToken 是 IToken 和 OToken 的派生类，
+	所以可以直接使用IToken 和 OToken 的公有成员函数。
+
+	构造函数：
+
+		IOToken()：空构造函数
+		IOToken(const char *in,char *out)：构造一个 IOToken，
+		　　分别以指定的两个字符串为输入和输出字符串的。
+		IOToken(const IOToken & token)：复制一个 IOToken

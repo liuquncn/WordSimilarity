@@ -1,0 +1,8 @@
+:Ìø
+V jump|Ìø
+:ÅÜ
+V run|ÅÜ
+:ÌøÎè
+V recreation|ÓéÀÖ
+:ÔËĞĞ
+V SelfMove|×ÔÒÆ

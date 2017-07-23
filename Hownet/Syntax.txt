@@ -1,0 +1,52 @@
+- syntax
+  ├ ADV adverbial|副状
+  │ ├ manner|方式
+  │ ├ accompaniment|伴随
+  │ ├ comment|评论
+  │ ├ modality|语气
+  │ ├ neg|否
+  │ ├ emphasis|强调
+  │ └ tense|时态
+  ├ COOR conjunction|并列
+  │ ├ and|和
+  │ ├ or|或
+  │ └ but|但
+  ├ CONJ whword|主从
+  │ ├ concession|让步
+  │ ├ supplement|递进
+  │ ├ condition|条件
+  │ ├ cause|原因
+  │ ├ EventResult|事件结局
+  │ ├ transition|转折
+  │ └ result|结果
+  ├ STRU particle|助词
+  │ ├ DeChinese|构助 - 结构助词
+  │ ├ LeChinese|动助 - 动态助词
+  │ │ ├ Vdirection|动趋
+  │ │ ├ Vprocess|动程
+  │ │ │ ├ Vsuppose|假定
+  │ │ │ ├ Vstart|发端
+  │ │ │ ├ Vgoingon|进展
+  │ │ │ ├ Vcontinue|延续
+  │ │ │ └ Vend|完结
+  │ │ └ Vresult|动果
+  │ │    ├ Vachieve|达成
+  │ │    ├ Vable|能力
+  │ │    ├ Vpossible|可能
+  │ │    └ Vtry|试试
+  │ └ MaChinese|语助
+  ├ CLAS classifier|单位词
+  │ ├ unit|单位 
+  │ ├ NounUnit|名量
+  │ └ ActUnit|动量
+  ├ N       名词
+  ├ PRON    代词
+  ├ NUM     数词
+  ├ V       动词
+  ├ AUX     助动词
+  ├ ADJ     形容词
+  ├ PREP    介词
+  ├ SUFFIX  后缀
+  ├ PREFIX  前缀
+  ├ ECHO    拟声词
+  └ EXPR    日常用语
